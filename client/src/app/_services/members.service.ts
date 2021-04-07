@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders, JsonpClientBackend } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
+import { PaginatedResult } from '../_models/pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,34 @@ export class MembersService {
   //Services are singleton. They start when a component needs to be serviced and stops when application stops
   //So we can store states and data inside them
   members: Member[] = [];
+  paginatedResult: PaginatedResult<Member[]> = new PaginatedResult<Member[]>();
 
   constructor(private http: HttpClient) { }
 
-  getMembers() {
+  getMembers(page?:number,itemsPerPage?:number) {
+    let params = new HttpParams();
+    if(page!==null && itemsPerPage!==null){
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
+    }
+
     // if array us not empty return an observable of this.member (of returns observarble)
-    if(this.members.length>0) return of (this.members) 
-    return this.http.get<Member[]>(this.baseUrl+'users').pipe(
-      map(members=>{
-        this.members = members;
-        return members;
+    // if(this.members.length>0) return of (this.members) 
+
+    
+    return this.http.get<Member[]>(this.baseUrl+'users',{observe: 'response',params}).pipe(
+      map(response=>{
+        this.paginatedResult.result = response.body;
+        if(response.headers.get('Pagination') !==null){
+          this.paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return this.paginatedResult;
       })
+      
+      // map(members=>{
+      //   this.members = members;
+      //   return members;
+      // })
     );     
   }
 

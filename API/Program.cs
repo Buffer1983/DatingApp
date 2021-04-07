@@ -15,7 +15,7 @@ namespace API
 {
     public class Program
     {
-        //Altered  to Task a sync in order to create Migrations And Data Seeding On startup
+        //Altered  to Task a sync in order to create Migrations And Data Seeding On startup test
         public static async Task Main(string[] args)
         {
             //We initialize the host but not run
