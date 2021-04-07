@@ -1,0 +1,71 @@
+<!-- check if we have a member, before display it. That's because html loads first, before ts -->
+<!-- <h1 *ngIf="member">{{member.knownAs}}</h1> -->
+
+<div class="row" *ngIf="member">
+    <div class="col-4">
+        <h1>Your Profile</h1>
+    </div>
+    <div class="col-8">
+        <!-- ngif hooked to form with id editForm. Property dirty means if sth changed inside form (textboxes etc)  -->
+        <div class="alert alert-info" *ngIf="editForm.dirty">
+            <strong>Information:</strong> You have made changes. Any unsaved changes will be lost
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <div>
+                    <strong>Location:</strong>
+                    <p>{{member.city}}, {{member.country}}</p>
+                </div>
+                <div>
+                    <strong>Age:</strong>
+                    <p>{{member.age}}</p>
+                </div>
+                <div>
+                    <strong>Last Active:</strong>
+                    <p>{{member.lastActive}}</p>
+                </div>
+                <div>
+                    <strong>Member since:</strong>
+                    <p>{{member.created}}</p>
+                </div>
+            </div>
+            <!-- if nothing changed, save button disabled -->
+            <div class="card-footer">
+                <!-- With form we hook the button on editForm below and give it a type of submit in order to call the method from component -->
+                <button [disabled]= "!editForm.dirty"  form="editForm"  type="submit" class="btn btn-success btn-block" >Save-Changes</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+            <tabset class="member-tabset">
+                <tab heading='About {{member.knownAs}}'>
+                    <!-- with # we declare that is an angular form in order to have interraction with the from angular component (ts) -->
+                    <!-- Call Method updateMember from component on submit -->
+                    <!-- We give it an id in order to have access from the save changes button that it is outside of the form -->
+                    <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+                        <h4>Description</h4>
+                        <!-- ngModel in order to bind text area of introduction to member.introduction -->
+                        <textarea class="form-control" [(ngModel)]="member.introduction" name="introduction" rows="6"></textarea>
+                        <h4 class="mt-2">Looking For</h4>
+                        <!-- name attribute is important.It should be same with member properties. Angular does background work -->
+                        <textarea class="form-control" [(ngModel)]="member.lookingFor"  name="lookingFor" rows="6"></textarea> 
+                        <h4 class="mt-2">Interests</h4>
+                        <textarea class="form-control" [(ngModel)]="member.interests"  name="interests" rows="6"></textarea> 
+                        <h4 class="mt-2"> Location Details</h4>
+                        <div class="form-inline">
+                            <label for="city"> City: </label>
+                            <input class="form-control" [(ngModel)]="member.city"  type="text" name="city" class="form control mx-2">
+                            <label for="country"> Country: </label>
+                            <input class="form-control" [(ngModel)]="member.country"  type="text" name="country" class="form control mx-2">
+                        </div>
+                    </form>
+                </tab>
+                <tab heading='Edit Photos'>
+                    <app-photo-editor [member]="member"></app-photo-editor>
+                </tab>
+            </tabset>
+    </div>
+</div>

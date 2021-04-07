@@ -1,0 +1,42 @@
+/* on mouse hover the image */
+.card:hover img {
+    /* img will scale up to 1.2 , 1.2 */
+    transform:scale(1.2,1.2);
+    /* zoom in will last 500 ms */
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    /* img fade out */
+    opacity:0.7;
+}
+
+/* normal state */
+.card img{
+    transform:scale(1.0,1.0);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+
+}
+/* Refers to class card-img-wrapper in html. If the photo overflow the component, hide the overflowed pic */
+.card-img-wrapper{
+    overflow: hidden;
+    position: relative;
+}
+
+.member-icons {
+    position: absolute;
+    bottom: -30%;
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+    opacity: 0;
+}
+
+.card-img-wrapper:hover .member-icons{
+    bottom: 0;
+    opacity: 1;
+}
+
+.animate{
+    transition: all 0.3s ease-in-out;
+}
