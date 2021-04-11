@@ -97,7 +97,7 @@
 
     {
         "UserName": "Bell",
-        "Gender": ",ale",
+        "Gender": "male",
         "DateOfBirth": "1987-06-28",
         "KnownAs": "Bell",
         "Created": "2021-03-01",
@@ -116,7 +116,7 @@
       },
       {
         "UserName": "Cross",
-        "Gender": ",ale",
+        "Gender": "male",
         "DateOfBirth": "1986-09-24",
         "KnownAs": "Cross",
         "Created": "2020-04-11",
@@ -135,7 +135,7 @@
       },
       {
         "UserName": "Teo",
-        "Gender": ",ale",
+        "Gender": "male",
         "DateOfBirth": "1988-11-19",
         "KnownAs": "Teo",
         "Created": "2020-12-06",
@@ -154,7 +154,7 @@
       },
       {
         "UserName": "George",
-        "Gender": ",ale",
+        "Gender": "male",
         "DateOfBirth": "1969-01-04",
         "KnownAs": "George",
         "Created": "2019-03-15",
@@ -173,7 +173,7 @@
       },
       {
         "UserName": "Giannis",
-        "Gender": ",ale",
+        "Gender": "male",
         "DateOfBirth": "1951-09-22",
         "KnownAs": "Giannis",
         "Created": "2019-08-21",

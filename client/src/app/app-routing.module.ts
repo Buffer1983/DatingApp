@@ -8,7 +8,9 @@ import { ListsComponent } from './lists/lists.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
+import { MembersPrintComponent } from './members/members-print/members-print.component';
 import { MessagesComponent } from './messages/messages.component';
+import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 
@@ -25,7 +27,9 @@ const routes: Routes = [
       //except from activate we call canDeactivate guard also
       {path:'member/edit',component:MemberEditComponent,canDeactivate:[PreventUnsavedChangesGuard]},
       {path:'lists',component:ListsComponent},
+      {path:'Test',component:MembersPrintComponent},
       {path:'messages',component:MessagesComponent},
+      {path:'register',component:RegisterComponent},
     
     ]
   },

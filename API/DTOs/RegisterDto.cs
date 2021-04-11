@@ -16,7 +16,7 @@ namespace API.DTOs
         //We set string limit to password,with minimum 4 chars and 8 maximum
         [StringLength(16,MinimumLength=8)]
         public string Password { get; set; }
-
+        public DateTime Created {get; set;}
     
     }
 }
