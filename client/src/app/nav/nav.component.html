@@ -1,39 +1,29 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
     <div class="container">
-        <a class="navbar-brand" routerLink='/' routerLinkActive='active'>ZeePortal</a>
+        <a class="navbar-brand" routerLink='/' routerLinkActive='active'>Dating App</a>
 
         <ul class="navbar-nav mr-auto">
-            <!-- We use ng-container. This will hide the urls from inspect if user is not logged in. 
-            We put ngif. if  accountservice.currentuser is null then hide all links of list
-            We prefer to put conditional html in ng-containers because 
-            they dont generate html code if not used and dont destroy arrange of page -->
-            <ng-container *ngIf="accountService.currentUser$  | async">
+            <ng-container *ngIf="accountService.currentUser$ | async">
                 <li class="nav-item">
-                    <!-- in app-routing .module.ts we declared in which path each component listens -->
-                    <!-- Here we say with routerlink to go this path. Routerlinkactive sets are our choice highlighted -->
-                    <a class="nav-link" routerLink='/members' routerLinkActive='active'>Matches</a>
+                    <a class="nav-link" routerLink='/members' routerLinkActive='active' >Matches</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink='/lists' routerLinkActive='active'>Lists</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink='/Messages' routerLinkActive='active'>Messages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink='/Test' routerLinkActive='active'>Test</a>
+                    <a class="nav-link" routerLink='/messages'routerLinkActive='active' >Messages</a>
                 </li>
             </ng-container>
             <li class="nav-item">
-                <a class="nav-link" routerLink='/Errors' routerLinkActive='active'>Errors</a>
+                <a class="nav-link" routerLink='/errors'routerLinkActive='active' >Errors</a>
             </li>
         </ul>
-        <!-- We can convert an observable to an object () as oject. Then we can use the property inside our html. In order to show property name 
-        we use {{}} and | titlecase will make first letter capital -->
+
         <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
-            <img src="{{user.photoUrl || '/assets/user.png' }}" alt="{{user.knownAs}}">
+            <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.username}}">
             <a class="dropdown-toggle text-light ml-2" dropdownToggle>Welcome {{user.knownAs | titlecase}}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu>
-                <a routerLink='member/edit' class="dropdown-item">Edit Profile</a>
+                <a routerLink='/member/edit' class="dropdown-item">Edit Profile</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" (click)="logout()" >Logout</a>
             </div>

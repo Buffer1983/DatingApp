@@ -7,51 +7,46 @@ import { User } from 'src/app/_models/user';
 import { take } from 'rxjs/operators';
 import { MembersService } from 'src/app/_services/members.service';
 import { Photo } from 'src/app/_models/photo';
+
 @Component({
   selector: 'app-photo-editor',
   templateUrl: './photo-editor.component.html',
   styleUrls: ['./photo-editor.component.css']
 })
 export class PhotoEditorComponent implements OnInit {
-  //It takes an input member type of Member
-  @Input() member:Member;
-  uploader : FileUploader;
+  @Input() member: Member;
+  uploader: FileUploader;
   hasBaseDropzoneOver = false;
   baseUrl = environment.apiUrl;
   user: User;
 
   constructor(private accountService: AccountService, private memberService: MembersService) { 
-    this.accountService.currentUser$.pipe(take(1)).subscribe(user=> this.user = user);
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
     this.initializeUploader();
   }
 
-
-  //event type any
-  fileOverBase(e: any){
-    this.hasBaseDropzoneOver=e;
+  fileOverBase(e: any) {
+    this.hasBaseDropzoneOver = e;
   }
 
-  setMainPhoto(photo: Photo){
-    //We send to API through member service the http.put to the specified in service url with id property
-    // As a result we use subscribe in order to update our user observable and to update the photoUrl to localstorage with accountservice. Also update members url
-    this.memberService.setMainPhoto(photo.id).subscribe(()=>{
+  setMainPhoto(photo: Photo) {
+    this.memberService.setMainPhoto(photo.id).subscribe(() => {
       this.user.photoUrl = photo.url;
       this.accountService.setCurrentUser(this.user);
       this.member.photoUrl = photo.url;
-      this.member.photos.forEach(p=>{
-        if(p.isMain) p.isMain=false;
-        if(p.id === photo.id) p.isMain= true;
+      this.member.photos.forEach(p => {
+        if (p.isMain) p.isMain = false;
+        if (p.id === photo.id) p.isMain = true;
       })
     })
-  }
+  } 
 
-  deletePhoto(photoId : number){
-    this.memberService.deletePhoto(photoId).subscribe(()=>{
-      //update member photos. Set them to photos except the one deleted
-      this.member.photos = this.member.photos.filter(x=>x.id !== photoId);
+  deletePhoto(photoId: number) {
+    this.memberService.deletePhoto(photoId).subscribe(() => {
+      this.member.photos = this.member.photos.filter(x => x.id !== photoId);
     })
   }
 
@@ -69,19 +64,18 @@ export class PhotoEditorComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
     }
-    
+
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        const photo:Photo = JSON.parse(response);
+        const photo: Photo = JSON.parse(response);
         this.member.photos.push(photo);
-        //if its the first photo of user,then add it and set to user/member
-        if(photo.isMain){
-          this.user.photoUrl = photo.url;
-          this.member.photoUrl = photo.url;
-          this.accountService.setCurrentUser(this.user);
-        }
+         if (photo.isMain) {
+           this.user.photoUrl = photo.url;
+           this.member.photoUrl = photo.url;
+           this.accountService.setCurrentUser(this.user);
+         }
       }
     }
-
   }
+
 }

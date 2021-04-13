@@ -1,11 +1,8 @@
-<!-- mt5 = margin top -->
 <div class="container mt-5">
     <div *ngIf="!registerMode" style='text-align: center;'>
-        <h1>ZeePortal</h1>
-        <p class="lead">Join And Zeese Better!</p>
+        <h1>Find your match</h1>
+        <p class="lead">Come on in to view your matches... all you need to do is sign up!</p>
         <div class="text-center">
-            <!-- btn-primary = sets coloring, btn-lg = sets size to large , mr-2 = sets margin right  -->
-            <!-- (click) means that when click hapens call home.component.ts registerToggle method -->
             <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
             <button class="btn btn-info btn-lg">Learn more</button>
         </div>
@@ -14,10 +11,6 @@
     <div *ngIf="registerMode" class="container">
         <div class="row justify-content-center">
             <div class="col-4">
-                <!-- this is how we pass values to child component. Child here is register and we pass the users:any to Input()usersFromHomeComponent -->
-                <!-- When we receive data from parent we use [] when we transmit () -->
-                <!-- cancelRegisterEvent expects parameter and we pass the event -->
-                <!-- [usersFromHomeComponent] ="users". Only for demo of parent to child  -->
                 <app-register (cancelRegister)="cancelRegisterMode($event)" ></app-register>
             </div>
         </div>

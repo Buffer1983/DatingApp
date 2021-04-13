@@ -3,7 +3,7 @@ import { AccountService } from '../_services/account.service';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { Router } from '@angular/router';
-import {ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -12,25 +12,21 @@ import {ToastrService } from 'ngx-toastr';
 })
 export class NavComponent implements OnInit {
   model: any = {}
-  //added router compononent in order to redirect
-  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
+
+  constructor(public accountService: AccountService, private router: Router, 
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
   login() {
     this.accountService.login(this.model).subscribe(response => {
-    //if user successfully login we redirect him to members page
-     this.router.navigateByUrl('/members')
-    }, error => {
-      console.log(error);
-      // this.toastr.error(error.error);
+      this.router.navigateByUrl('/members');
     })
   }
 
   logout() {
     this.accountService.logout();
-    //if user logs out we redirect him to home page
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/')
   }
 }

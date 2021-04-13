@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,63 +24,62 @@ namespace API.Data
 
         public async Task<MemberDto> GetMemberAsync(string username)
         {
-            //We execute the query directly to context. With projectTo we pass automatic the values to memberDto.Mapper will map fields.
             return await _context.Users
-            .Where(x => x.UserName == username)
-            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-            .SingleOrDefaultAsync();
+                .Where(x => x.UserName == username)
+                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync();
         }
-        //1st  Way using Entity//////////////////
+
         public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-                //As no tracking set because we only read members
-                //As queryable in order to apply where (queries)
-                var query =  _context.Users.AsQueryable();
-                //not return current user (himself)
-                query = query.Where(u => u.UserName != userParams.CurrentUsername);
-                query = query.Where(u=>u.Gender == userParams.Gender);
-                
-                var minDob = DateTime.Today.AddYears(-userParams.MaxAge-1);
-                var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
+            var query = _context.Users.AsQueryable();
 
-                query=query.Where(u=>u.DateOfBirth>= minDob && u.DateOfBirth<=maxDob); 
-                query= userParams.OrderBy switch{
-                    "created" => query.OrderByDescending(u=>u.Created),
-                    _=> query.OrderByDescending(u=>u.LastActive) //_ means default
-                };
+            query = query.Where(u => u.UserName != userParams.CurrentUsername);
+            query = query.Where(u => u.Gender == userParams.Gender);
 
-                return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper
-                    .ConfigurationProvider).AsNoTracking(),
-                    userParams.PageNumber,userParams.PageSize);
+            var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
+            var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
+
+            query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
+
+            query = userParams.OrderBy switch
+            {
+                "created" => query.OrderByDescending(u => u.Created),
+                _ => query.OrderByDescending(u => u.LastActive)
+            };
+            
+            return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper
+                .ConfigurationProvider).AsNoTracking(), 
+                    userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
         }
-        ///////////////////////////////////
-        //2nd way///////////////////
+
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
             return await _context.Users
-            .Include(p => p.Photos)
-            .SingleOrDefaultAsync(x => x.UserName == username);
+                .Include(p => p.Photos)
+                .SingleOrDefaultAsync(x => x.UserName == username);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
             return await _context.Users
-            .Include(p => p.Photos)
-            .ToListAsync();
+                .Include(p => p.Photos)
+                .ToListAsync();
         }
-        ///////////////////////////////////////////////////
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
         public void Update(AppUser user)
         {
-                _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
         }
     }
 }

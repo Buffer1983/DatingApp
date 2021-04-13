@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -29,17 +28,15 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
-            //map registerdto that we got with appuser
+
             var user = _mapper.Map<AppUser>(registerDto);
-            //creating password
+
             using var hmac = new HMACSHA512();
 
             user.UserName = registerDto.Username.ToLower();
             user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
             user.PasswordSalt = hmac.Key;
-            user.Created = DateTime.Now;
-            
-            //save to db
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
@@ -51,7 +48,6 @@ namespace API.Controllers
                 Gender = user.Gender
             };
         }
-
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)

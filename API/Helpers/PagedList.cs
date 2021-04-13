@@ -21,7 +21,7 @@ namespace API.Helpers
         public int TotalPages { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
-        //General method in order to get paged results    
+
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, 
             int pageSize)
         {
