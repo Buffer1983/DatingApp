@@ -37,6 +37,11 @@ export class AccountService {
   }
 
   setCurrentUser(user: User) {
+    user.roles =[];
+    const roles = this.getDecodedToken(user.token).role;
+    //roles can be sent as a string if its only one or as an array if more
+    //We check if roles is an Array. If true then set it. If not push string in the user.roles array which is empty
+    Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
@@ -45,4 +50,9 @@ export class AccountService {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
   }
+
+  getDecodedToken(token){
+    return JSON.parse(atob(token.split('.')[1]));
+  }
+
 }
