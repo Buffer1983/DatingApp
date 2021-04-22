@@ -1,18 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { Message } from 'src/app/_models/message';
 import { MessageService } from 'src/app/_services/message.service';
+import { PresenceService } from 'src/app/_services/presence.service';
+import { AccountService } from 'src/app/_services/account.service';
+import { User } from 'src/app/_models/user';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-member-detail',
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css']
 })
-export class MemberDetailComponent implements OnInit {
+
+//When leaving the page or the component, we want to destroy hub connection
+export class MemberDetailComponent implements OnInit,OnDestroy {
   //Get Access to tabs control of html. It is bootstrap component, so we declare the appropriate type (ngx-bootstrap/tabs)
   @ViewChild('memberTabs',{static: true}) memberTabs : TabsetComponent;
   member: Member;
@@ -21,8 +27,15 @@ export class MemberDetailComponent implements OnInit {
   //Which tab is selected
   activeTab: TabDirective;
   messages: Message[] = [];
+  user:User;
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute, private messageService : MessageService) { }
+  constructor(public presence: PresenceService , private route: ActivatedRoute,
+     private messageService : MessageService, private accountService : AccountService,
+     private router:Router) { 
+       this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+       //in order to reload page if same tab is requested
+       this.router.routeReuseStrategy.shouldReuseRoute = () =>false;
+     }
 
   ngOnInit(): void {
     //Thanks to our resolver, we can pass from route the member. This way it will be loaded before
@@ -65,8 +78,15 @@ export class MemberDetailComponent implements OnInit {
   onTabActivated(data: TabDirective){
     this.activeTab = data;
     if(this.activeTab.heading === 'Messages' && this.messages.length===0){
-        this.loadMessages();
+        // this.loadMessages(); We stop getting Messages from db and connecting to hub
+        this.messageService.createHubConnection(this.user,this.member.username);
+    }else{
+        this.messageService.stopHubConnection();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
   }
 
   loadMessages(){

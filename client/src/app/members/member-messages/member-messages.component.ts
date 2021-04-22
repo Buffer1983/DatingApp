@@ -16,16 +16,16 @@ export class MemberMessagesComponent implements OnInit {
   @Input() username: string;
   messageContent: string;
 
-  constructor(private messageService: MessageService) { }
+  //public messageService in order template to get access to service and hub
+  constructor(public messageService: MessageService) { }
 
   ngOnInit(): void {
 
   }
 
   sendMessage(){
-    this.messageService.sendMessage(this.username, this.messageContent).subscribe(message=>{
-      //we add the sent message to our array
-      this.messages.push(message);
+    //sendMessage returns promise, thats why we use next
+    this.messageService.sendMessage(this.username, this.messageContent).then(()=>{
       this.messageForm.reset();
     })
   }
