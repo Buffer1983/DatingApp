@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 using API.Entities;
 
 namespace API.DTOs
@@ -16,5 +17,11 @@ namespace API.DTOs
         //? optional because we want to know if is not read
         public DateTime? DateRead {get;set;}
         public DateTime MessageSent {get;set;}
+        
+        //JsonIgnore because we dont want to expose this data to client, but only needed in messagerepository
+        [JsonIgnore]
+        public bool SenderDeleted {get;set;}
+        [JsonIgnore]
+        public bool RecipientDeleted{get;set;}
     }
 }
