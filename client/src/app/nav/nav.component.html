@@ -16,6 +16,13 @@
                 <li *appHasRole='["Admin","Moderator"]' class="nav-item">
                     <a class="nav-link" routerLink='/admin'routerLinkActive='active' >Admin</a>
                 </li>
+                <li class="dropdown" dropdown>
+                    <a class="dropdown-toggle text-light" dropdownToggle>FuelExpenses</a>
+                    <div class="dropdown-menu" *dropdownMenu>
+                        <a routerLink='/member/edit' class="dropdown-item">Summary</a>
+                        <a routerLink='/fuelexpenses/add' class="dropdown-item">Add Invoice</a>
+                    </div>
+                </li>
             </ng-container>
             <li class="nav-item">
                 <a class="nav-link" routerLink='/errors'routerLinkActive='active' >Errors</a>

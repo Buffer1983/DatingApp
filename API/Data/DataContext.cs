@@ -22,6 +22,7 @@ namespace API.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
+        public DbSet<FuelExpense> FuelExpenses {get; set;}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,7 +31,7 @@ namespace API.Data
             builder.Entity<Group>()
                 .HasMany(x => x.Connections)
                 .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<AppUser>()
                 .HasMany(ur => ur.UserRoles)
@@ -52,13 +53,13 @@ namespace API.Data
                 .HasOne(s => s.SourceUser)
                 .WithMany(l => l.LikedUsers)
                 .HasForeignKey(s => s.SourceUserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
             
             builder.Entity<UserLike>()
                 .HasOne(s => s.LikedUser)
                 .WithMany(l => l.LikedByUsers)
                 .HasForeignKey(s => s.LikedUserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Message>()
                 .HasOne(u => u.Recipient)
@@ -69,6 +70,11 @@ namespace API.Data
                 .HasOne(u => u.Sender)
                 .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
+            
+            builder.Entity<FuelExpense>()
+                .HasOne(u=> u.User)
+                .WithMany(f=>f.FuelExpenses)
+                .OnDelete(DeleteBehavior.Cascade);
             
             builder.ApplyUtcDateTimeConverter();
         }

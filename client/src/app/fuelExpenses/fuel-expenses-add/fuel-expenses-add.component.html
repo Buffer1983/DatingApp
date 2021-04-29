@@ -1,0 +1,75 @@
+<div class="col-6" >
+    <form [formGroup]='addFuelExpensesForm' (ngSubmit)="addFuelExpensesForm.valid && AddExpenses()" autocomplete="off">
+        <h2 class="text-center text-primary">Input Fuel Form</h2>
+            <div class="alert alert-info" *ngIf="addFuelExpensesForm.dirty">
+                <strong>Information: </strong> You have made changes.  Any unsaved changes will be lost
+            </div>
+        <hr>
+        <app-text-input  [formControl]='addFuelExpensesForm.controls["licenseNumber"]' 
+            [label]='"License Number"'></app-text-input>
+        <app-text-input [formControl]='addFuelExpensesForm.controls["carModel"]' 
+            [label]='"Car Model"'></app-text-input>
+        <div class="form-group">
+            <label class="control-label" style="margin-right: 10px;">Type of fuel: </label>
+            <label class="radio-inline">
+                <input type="radio" value='benzene' formControlName='fuelType'> Βενζίνη
+            </label>
+            <label class="radio-inline">
+                <input type="radio" value='diesel' formControlName='fuelType' class="ml-3"> Πετρέλαιο
+            </label>
+            <label class="radio-inline">
+                <input type="radio" value='gas' formControlName='fuelType' class="ml-3"> Αέριο
+            </label>
+        </div>
+        <h3 class='text-center text-primary'>Refuelling Data</h3>
+        <app-text-input [formControl]='addFuelExpensesForm.controls["invoiceNumber"]' 
+            [label]='"Invoice Number"'></app-text-input>
+        <app-date-input [formControl]='addFuelExpensesForm.controls["invoiceDate"]' 
+            [label]='"Invoice Date"'></app-date-input>
+        <app-number-input [formControl]='addFuelExpensesForm.controls["invoiceAmount"]' 
+            [label]='"Invoice Amount"'></app-number-input>
+        <app-number-input [formControl]='addFuelExpensesForm.controls["invoiceLitres"]' 
+            [label]='"invoice Litres"'></app-number-input>
+        <app-number-input [formControl]='addFuelExpensesForm.controls["carKm"]' 
+            [label]='"Number of Km"'></app-number-input>
+        <h3 class='text-center text-primary'>Purpose Data</h3>
+        <div class="form-group mt-3">
+            <label class="control-label" style="margin-right: 10px;">Out of town distances? </label>
+            <label class="radio-inline">
+                <input type="radio" value='True' formControlName='tripOutside'> Yes
+            </label>
+            <label class="radio-inline">
+                <input type="radio" value='False' formControlName='tripOutside' class="ml-3"> Νο
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="control-label" style="margin-right: 10px;">Scheduled trip? </label>
+            <label class="radio-inline">
+                <input type="radio" value='True' formControlName='scheduledTrip'> Yes
+            </label>
+            <label class="radio-inline">
+                <input type="radio" value='False' formControlName='scheduledTrip' class="ml-3"> Νο
+            </label>
+        </div>
+        <app-text-input [formControl]='addFuelExpensesForm.controls["tripOutsideKm"]' 
+            [label]='"Km Approximately"'></app-text-input>
+        <app-text-input [formControl]='addFuelExpensesForm.controls["tripDescription"]' 
+            [label]='"Comments/Trip Description"'></app-text-input>
+
+
+        <div class="row" *ngIf="validationErrors.length > 0">
+            <ul class="text-danger">
+                <li *ngFor="let error of validationErrors">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+
+        
+    
+        <div class="form-group text-center">
+            <button [disabled]='!addFuelExpensesForm.valid' class="btn btn-success mr-2" type="submit" (click)="AddExpenses()">Submit</button>
+            <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
+        </div>
+    </form>
+</div>

@@ -23,6 +23,13 @@ namespace API.Helpers
                     src.Sender.Photos.FirstOrDefault(x => x.IsMain).Url))
                 .ForMember(dest => dest.RecipientPhotoUrl, opt => opt.MapFrom(src => 
                     src.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url));
+            CreateMap<FuelExpense,FuelExpenseDto>()
+                    .ForMember(dest => dest.TripOutside, opt => opt.MapFrom(src => src.TripOutside.ToString()))
+                    .ForMember(dest => dest.ScheduledTrip, opt => opt.MapFrom(src => src.ScheduledTrip.ToString()));
+            CreateMap<FuelExpenseDto,FuelExpense>()
+                    .ForMember(dest => dest.TripOutside, opt => opt.MapFrom(src => bool.Parse(src.TripOutside.ToString())))
+                    .ForMember(dest => dest.ScheduledTrip, opt => opt.MapFrom(src =>bool.Parse(src.ScheduledTrip.ToString())));
+                
         }
     }
 }
