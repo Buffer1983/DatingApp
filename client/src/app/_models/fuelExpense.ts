@@ -1,4 +1,4 @@
-export interface fuelExpense 
+export interface FuelExpense 
 {
     id:number
     invoiceNumber: string;

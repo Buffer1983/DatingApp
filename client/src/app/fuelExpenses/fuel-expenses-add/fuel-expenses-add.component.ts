@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ConfirmDialogComponent } from 'src/app/modals/confirm-dialog/confirm-dialog.component';
 import { AccountService } from 'src/app/_services/account.service';
-import { ConfirmService } from 'src/app/_services/confirm.service';
 import { FuelExpensesService } from 'src/app/_services/fuelExpenses.service';
 
 @Component({
@@ -25,7 +23,9 @@ export class FuelExpensesAddComponent implements OnInit {
   }
 
   constructor(private accountService: AccountService, private toastr: ToastrService, 
-    private fb: FormBuilder, private router: Router, private fuelExpensesService: FuelExpensesService) { }
+    private fb: FormBuilder, 
+    private router: Router, 
+    private fuelExpensesService: FuelExpensesService) { }
 
   ngOnInit(): void {
 
@@ -55,7 +55,7 @@ export class FuelExpensesAddComponent implements OnInit {
       this.validationErrors = error;
     });
     //If we want to rese without exiting
-    // this.addFuelExpensesForm.reset();
+     this.addFuelExpensesForm.reset();
   }
 
   cancel() {
