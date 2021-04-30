@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -32,6 +33,16 @@ namespace API.Data
             _context.FuelExpenses.Remove(fuelExpense);
         }
 
+        public async Task<PagedList<FuelExpenseDto>> GetAdminFuelExpenses(FuelExpensesParams fuelExpensesParams)
+        {
+            var query = _context.FuelExpenses
+                    .Include(x=> x.User)
+                    .Where(x => x.InvoiceDate >= fuelExpensesParams.FromDate && x.InvoiceDate<= fuelExpensesParams.ToDate)                   
+                    .AsQueryable();
+            return await PagedList<FuelExpenseDto>.CreateAsync(query.ProjectTo<FuelExpenseDto>(_mapper.ConfigurationProvider), 
+            fuelExpensesParams.PageNumber, fuelExpensesParams.PageSize);
+        }
+
         public async Task<FuelExpense> GetFuelExpense(string username, string invoiceNumber)
         {
             return await _context.FuelExpenses
@@ -49,14 +60,12 @@ namespace API.Data
         public async Task<PagedList<FuelExpenseDto>> GetUserFuelExpenses(FuelExpensesParams fuelExpensesParams)
         {
             var query = _context.FuelExpenses
-                    .OrderByDescending(f => f.InvoiceDate)
-                    .ProjectTo<FuelExpenseDto>(_mapper.ConfigurationProvider)
-                    .AsQueryable();
-            query = query.Where(f => f.InvoiceDate >= fuelExpensesParams.FromDate
-                                && f.InvoiceDate <= fuelExpensesParams.ToDate
-                                && f.Username == fuelExpensesParams.Username);
-
-            return await PagedList<FuelExpenseDto>.CreateAsync(query, fuelExpensesParams.PageNumber, fuelExpensesParams.PageSize);
+                                .Include(x=> x.User)
+                                .Where(x => x.User.UserName == fuelExpensesParams.Username)                   
+                                .AsQueryable();
+            query = query.Where(x=> x.InvoiceDate >= fuelExpensesParams.FromDate && x.InvoiceDate<= fuelExpensesParams.ToDate);
+            return await PagedList<FuelExpenseDto>.CreateAsync(query.ProjectTo<FuelExpenseDto>(_mapper.ConfigurationProvider), 
+            fuelExpensesParams.PageNumber, fuelExpensesParams.PageSize);
         }
 
         public void UpdateFuelExpense(FuelExpense fuelExpense)

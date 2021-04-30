@@ -13,6 +13,6 @@ namespace API.Interfaces
         Task<FuelExpense> GetFuelExpenseById(int id);
         Task<FuelExpense> GetFuelExpense(string username, string InvoiceNumber);
         Task<PagedList<FuelExpenseDto>> GetUserFuelExpenses(FuelExpensesParams fuelExpensesParams);
-        
+        Task<PagedList<FuelExpenseDto>> GetAdminFuelExpenses(FuelExpensesParams fuelExpensesParams);
     }
 }
