@@ -35,6 +35,8 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 import { FuelExpensesAddComponent } from './fuelexpenses/fuel-expenses-add/fuel-expenses-add.component';
 import { NumberInputComponent } from './_forms/number-input/number-input.component';
+import { FuelExpensesListComponent } from './fuelexpenses/fuel-expenses-list/fuel-expenses-list.component';
+import { FuelCardComponent } from './fuelExpenses/fuel-card/fuel-card.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { NumberInputComponent } from './_forms/number-input/number-input.compone
     RolesModalComponent,
     ConfirmDialogComponent,
     FuelExpensesAddComponent,
-    NumberInputComponent
+    FuelExpensesListComponent,
+    FuelCardComponent,
+    NumberInputComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,13 @@
-import { FuelExpense} from './fuelExpense';
-import { PaginatedResult } from './pagination';
-
-
 export class FuelExpenseParams {
 
     username: string;
-    fromDate: Date;
-    toDate: Date;
+    fromDate: string;
+    toDate: string;
     pageNumber = 1;
     pageSize = 6;
-    orderBy = 'invoiceDate';
+    // orderBy = 'invoiceDate';
 
-    constructor(fuelExpense:FuelExpense) {
-        this.username = fuelExpense.username;
+    constructor() {
+
     }
 }

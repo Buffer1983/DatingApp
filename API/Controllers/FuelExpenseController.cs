@@ -60,7 +60,6 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FuelExpenseDto>>> GetFuelExpensesForUser([FromQuery] FuelExpensesParams fuelExpensesParams)
         {
-            fuelExpensesParams.Username = User.GetUsername();
             var fuelExpenses = await _unitOfWork.FuelExpenseRepository.GetUserFuelExpenses(fuelExpensesParams);
             Response.AddPaginationHeader(fuelExpenses.CurrentPage, fuelExpenses.PageSize, fuelExpenses.TotalCount, fuelExpenses.TotalPages);
 

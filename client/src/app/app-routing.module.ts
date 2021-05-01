@@ -15,6 +15,7 @@ import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { FuelExpensesAddComponent } from './fuelexpenses/fuel-expenses-add/fuel-expenses-add.component';
+import { FuelExpensesListComponent } from './fuelexpenses/fuel-expenses-list/fuel-expenses-list.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
       {path: 'lists', component: ListsComponent},
       {path: 'fuelexpenses/add' , component : FuelExpensesAddComponent},
+      {path: 'fuelexpense' , component : FuelExpensesListComponent},
       {path: 'messages', component: MessagesComponent},
       //We add adminguard in order to have access only admins
       {path: 'admin', component: AdminPanelComponent, canActivate:[AdminGuard]},

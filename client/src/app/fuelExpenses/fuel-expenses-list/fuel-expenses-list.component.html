@@ -1,31 +1,14 @@
 <div class="text-center mt-3">
     <h2>Your Invoices - {{pagination?.totalItems}} found</h2>
 </div>
-<!-- 
-<div class="container mt-3">
-    <form [formGroup] ="ngForm" class="form-inline mb-3" (ngSubmit)="loadExpenses()" autocomplete="off">
-        <div class="form-group">
-            <label>Date From:</label>
-            <input type="date" class="form-control ml-1" style="width: 300px;" name="fromDate" 
-                [(ngModel)]="fuelExpenseParams.fromDate">
-        </div>
 
-        <div class="form-group px-2">
-            <label>Date to: </label>
-            <input type="date" class="form-control ml-1" style="width: 300;" name="toDate" 
-                [(ngModel)]="fuelExpenseParams.toDate">
-        </div>
-
-        <button class="btn btn-primary ml-1" type="submit">Apply Filters</button>
-        <button (click)="resetFilters()" class="btn btn-info ml-1" type="submit">Reset Filters</button>
-    </form>
-</div>
 
 <div class="row">
     <div *ngFor="let fuelExpense of fuelExpenses" class="col-2">
-        <app-fuel-card [fuelExpense]="fuelExpense"></app-fuel-card>
+       {{fuelExpense.invoiceAmount}}
+        <!-- <app-fuel-card [fuelExpense]="fuelExpense"></app-fuel-card> -->
     </div>
-</div> -->
+</div> 
 
 <div class="d-flex justify-content-center" *ngIf="pagination">
     <pagination 

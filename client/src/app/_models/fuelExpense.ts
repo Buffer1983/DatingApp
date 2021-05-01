@@ -1,12 +1,18 @@
 export interface FuelExpense 
 {
-    id:number
+    id:number;
     invoiceNumber: string;
-    userId:number
-    username: string
-    invoiceDate: Date
-    insertDate: Date
-    invoiceAmount: number
-    numOfKm : number
-    comments : string
+    invoiceDate: Date;
+    invoiceAmount: number;
+    tripDescription: string;
+    licenseNumber: string;
+    carModel: string;
+    fuelType: string;
+    invoiceLitres: number;
+    carKm: number;
+    tripOutside: string;
+    scheduledTrip: string;
+    tripOutsideKm: number;
+    userId:number;
+    username: string;
 }

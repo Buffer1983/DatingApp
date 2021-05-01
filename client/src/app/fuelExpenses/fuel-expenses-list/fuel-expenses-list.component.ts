@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { DateFormatter } from 'ngx-bootstrap/datepicker';
 import { FuelExpense } from 'src/app/_models/fuelExpense';
-import { FuelExpenseParams } from 'src/app/_models/fuelExpenseParams';
 import { Pagination } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/user';
 import { FuelExpensesService } from 'src/app/_services/fuelExpenses.service';
-import { MembersService } from 'src/app/_services/members.service';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FuelExpenseParams } from 'src/app/_models/fuelExpenseParams';
+import { AccountService } from 'src/app/_services/account.service';
+import { take } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-fuel-expenses-list',
@@ -18,48 +18,38 @@ export class FuelExpensesListComponent implements OnInit {
   pagination:Pagination;
   fuelExpenseParams: FuelExpenseParams;
   user:User;
-  ngForm: FormGroup;
+  
 
-  constructor(private fuelExpensesService: FuelExpensesService,private fb: FormBuilder) {
-    this.fuelExpenseParams = this.fuelExpensesService.getFuelExpenseParams();
+
+  constructor(private accountService: AccountService, private fuelExpensesService: FuelExpensesService) {
+     this.fuelExpenseParams = this.fuelExpensesService.getFuelParams();
+     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
    }
 
   ngOnInit(): void { 
-    // this.resetFilters()
-    console.log(this.fuelExpenseParams.orderBy);
-    // this.loadExpenses();
-    // this.initializeForm();
-    // this.loadExpenses();
-  }
-
-  initializeForm():void{
-    this.ngForm = this.fb.group({
-      dateFrom:[''],
-      dateTo:['']
-    })
-
+    // this.fuelExpenseParams = new FuelExpenseParams();
+    this.fuelExpenseParams.fromDate= '2021-01-11T22:25:08Z';
+    this.fuelExpenseParams.toDate= '2021-12-11T22:25:08Z';
+    this.fuelExpensesService.user.username = this.user.username;
+    this.loadExpenses();
   }
 
   loadExpenses(){
-
-    console.log(this.fuelExpenseParams.fromDate);
-
-    this.fuelExpensesService.setFuelExpensesParams(this.fuelExpenseParams);
+    this.fuelExpensesService.setFuelParams(this.fuelExpenseParams);
     this.fuelExpensesService.getFuelExpenses(this.fuelExpenseParams).subscribe(response=>{
       this.fuelExpenses = response.result;
       this.pagination = response.pagination;
     })
-    // this.fuelExpensesService.addFuelExpense();
   }
 
   resetFilters() {
-    this.fuelExpenseParams = this.fuelExpensesService.resetFuelExpenseParams();
+    this.fuelExpenseParams = this.fuelExpensesService.resetFuelParams();
     this.loadExpenses();
   }
 
   pageChanged(event: any) {
     this.fuelExpenseParams.pageNumber = event.page;
-    this.fuelExpensesService.setFuelExpensesParams(this.fuelExpenseParams);
+    this.fuelExpensesService.setFuelParams(this.fuelExpenseParams);
     this.loadExpenses();
   }
 
