@@ -6,6 +6,7 @@ import { FuelExpensesService } from 'src/app/_services/fuelExpenses.service';
 import { FuelExpenseParams } from 'src/app/_models/fuelExpenseParams';
 import { AccountService } from 'src/app/_services/account.service';
 import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class FuelExpensesListComponent implements OnInit {
   constructor(private accountService: AccountService, private fuelExpensesService: FuelExpensesService) {
      this.fuelExpenseParams = this.fuelExpensesService.getFuelParams();
      this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+    
    }
 
   ngOnInit(): void { 

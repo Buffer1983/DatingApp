@@ -16,11 +16,6 @@ export class FuelExpensesAddComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   addFuelExpensesForm: FormGroup;
   validationErrors: string[] = [];
-  @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any) {
-    if (this.editForm.dirty) {
-      $event.returnValue = true;
-    }
-  }
 
   constructor(private accountService: AccountService, private toastr: ToastrService, 
     private fb: FormBuilder, 
@@ -28,9 +23,6 @@ export class FuelExpensesAddComponent implements OnInit {
     private fuelExpensesService: FuelExpensesService) { }
 
   ngOnInit(): void {
-
-    
-
     this.addFuelExpensesForm = this.fb.group({
       invoiceDate: ['',Validators.required],
       invoiceAmount: ['', Validators.required],
@@ -56,6 +48,7 @@ export class FuelExpensesAddComponent implements OnInit {
     });
     //If we want to rese without exiting
      this.addFuelExpensesForm.reset();
+     this.router.navigateByUrl('/fuelexpense', { skipLocationChange: true });
   }
 
   cancel() {

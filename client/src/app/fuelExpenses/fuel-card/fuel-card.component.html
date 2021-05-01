@@ -1,9 +1,20 @@
-<div class="card" style="width: 50%;">
+<div class="card mt-2 mr-2">
     <div class="card-body">
-        <h4 class="card-title">{{fuelExpense.invoiceDate}}</h4>
-        <h6 class="card-subtitle text-muted">Card subtitle</h6>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, quas.</p>
+        <div>
+            <h3 class="d-inline text-success pr-1">{{fuelExpense.invoiceAmount}}</h3>
+            <h3 class="d-inline text-dark">€</h3>
+        </div>
         
-        <a class="btn btn-primary " href="#">Delete</a>
+        <div>
+            <h5 class="d-inline text-primary pr-1">Invoice Number:</h5>
+            <h5 class="d-inline text-muted  pr-1">{{fuelExpense.invoiceNumber}}</h5>     
+            <h5 class="d-inline text-primary  pr-1">Date:</h5>
+            <h5 class="d-inline text-muted  pr-1">{{fuelExpense.invoiceDate | date: 'dd MMM yyyy' }}</h5>
+        </div>
+        <p class="card-text">
+            <h6>License Number: {{fuelExpense.licenseNumber}} </h6>
+            <h6>Vehicle Km: {{fuelExpense.carKm}}</h6>
+            
     </div>
+    <button class="btn btn-primary w-25 ml-2 mb-2" (click)="deleteInvoice(fuelExpense)" [routerLink]="['/fuelexpense']" routerLinkActive="router-link-active"  >Delete</button>
 </div>

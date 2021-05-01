@@ -37,6 +37,7 @@ import { FuelExpensesAddComponent } from './fuelexpenses/fuel-expenses-add/fuel-
 import { NumberInputComponent } from './_forms/number-input/number-input.component';
 import { FuelExpensesListComponent } from './fuelexpenses/fuel-expenses-list/fuel-expenses-list.component';
 import { FuelCardComponent } from './fuelExpenses/fuel-card/fuel-card.component';
+import { FuelExpensesAdminComponent } from './fuelexpenses/fuel-expenses-admin/fuel-expenses-admin.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { FuelCardComponent } from './fuelExpenses/fuel-card/fuel-card.component'
     FuelExpensesListComponent,
     FuelCardComponent,
     NumberInputComponent,
+    FuelExpensesAdminComponent,
   ],
   imports: [
     BrowserModule,
