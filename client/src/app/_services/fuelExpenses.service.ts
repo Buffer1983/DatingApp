@@ -5,6 +5,7 @@ import { map, take } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { FuelExpense } from "../_models/fuelExpense";
 import { FuelExpenseParams } from "../_models/fuelExpenseParams";
+import { FuelSummary } from "../_models/fuelSummary";
 import { User } from "../_models/user";
 import { AccountService } from "./account.service";
 import { getPaginatedResult, getPaginationHeaders } from "./paginationHelper";
@@ -72,6 +73,35 @@ import { getPaginatedResult, getPaginationHeaders } from "./paginationHelper";
         
         // params = params.append('orderBy', fuelExpenseParams.orderBy);
         return getPaginatedResult<FuelExpense[]>(this.baseUrl + 'fuelexpense', params,this.http)
+          .pipe(map(response => {
+            this.fuelCache.set(Object.values(fuelExpenseParams).join('-'), response);
+            return response;
+          }))
+      }
+
+      getFuelSummaryAdmin(fuelExpenseParams :FuelExpenseParams){
+        let params = getPaginationHeaders(fuelExpenseParams.pageNumber, fuelExpenseParams.pageSize);
+
+        params = params.append('fromDate', fuelExpenseParams.fromDate);
+        params = params.append('toDate', fuelExpenseParams.toDate); 
+
+        return  this.http.get<FuelSummary>(this.baseUrl + 'fuelexpense/admin/summary?' + params);
+        
+      }
+      
+      getFuelExpensesAdmin(fuelExpenseParams: FuelExpenseParams) {
+        // var response = this.fuelCache.get(Object.values(fuelExpenseParams).join('-'));
+        // if (response) {
+        //   return of(response);
+        // }
+        
+        let params = getPaginationHeaders(fuelExpenseParams.pageNumber, fuelExpenseParams.pageSize);
+
+        params = params.append('fromDate', fuelExpenseParams.fromDate);
+        params = params.append('toDate', fuelExpenseParams.toDate);      
+        
+        // params = params.append('orderBy', fuelExpenseParams.orderBy);
+        return getPaginatedResult<FuelExpense[]>(this.baseUrl + 'fuelexpense/admin', params,this.http)
           .pipe(map(response => {
             this.fuelCache.set(Object.values(fuelExpenseParams).join('-'), response);
             return response;

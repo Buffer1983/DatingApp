@@ -21,6 +21,7 @@
                     <div class="dropdown-menu" *dropdownMenu>
                         <a routerLink='/fuelexpense' class="dropdown-item">Summary</a>
                         <a routerLink='/fuelexpenses/add' class="dropdown-item">Add Invoice</a>
+                        <a *appHasRole='["Admin","Moderator"]'  class="dropdown-item" routerLink='fuelexpense/admin' >Admin Summary</a>
                     </div>
                 </li>
             </ng-container>

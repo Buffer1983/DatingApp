@@ -78,7 +78,7 @@ import { FuelExpensesAdminComponent } from './fuelexpenses/fuel-expenses-admin/f
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

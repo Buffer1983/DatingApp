@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
@@ -14,5 +15,7 @@ namespace API.Interfaces
         Task<FuelExpense> GetFuelExpense(string username, string InvoiceNumber);
         Task<PagedList<FuelExpenseDto>> GetUserFuelExpenses(FuelExpensesParams fuelExpensesParams);
         Task<PagedList<FuelExpenseDto>> GetAdminFuelExpenses(FuelExpensesParams fuelExpensesParams);
+        Task<IEnumerable<FuelExpense>> GetAdminSummaryExpenses(FuelExpensesParams fuelExpensesParams);
+
     }
 }

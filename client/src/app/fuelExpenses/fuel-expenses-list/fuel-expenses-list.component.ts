@@ -6,7 +6,6 @@ import { FuelExpensesService } from 'src/app/_services/fuelExpenses.service';
 import { FuelExpenseParams } from 'src/app/_models/fuelExpenseParams';
 import { AccountService } from 'src/app/_services/account.service';
 import { take } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,6 +18,7 @@ export class FuelExpensesListComponent implements OnInit {
   pagination:Pagination;
   fuelExpenseParams: FuelExpenseParams;
   user:User;
+  currentDate = new Date();
   
 
 
@@ -29,9 +29,9 @@ export class FuelExpensesListComponent implements OnInit {
    }
 
   ngOnInit(): void { 
-    // this.fuelExpenseParams = new FuelExpenseParams();
-    this.fuelExpenseParams.fromDate= '2021-01-11T22:25:08Z';
-    this.fuelExpenseParams.toDate= '2021-12-11T22:25:08Z';
+    
+    this.fuelExpenseParams.toDate= new Date().toUTCString();
+    this.fuelExpenseParams.fromDate= new Date(this.currentDate.setDate(this.currentDate.getDate() - 30)).toUTCString();
     this.fuelExpensesService.user.username = this.user.username;
     this.loadExpenses();
   }

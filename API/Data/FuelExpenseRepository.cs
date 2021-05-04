@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -41,6 +42,12 @@ namespace API.Data
                     .AsQueryable();
             return await PagedList<FuelExpenseDto>.CreateAsync(query.ProjectTo<FuelExpenseDto>(_mapper.ConfigurationProvider), 
             fuelExpensesParams.PageNumber, fuelExpensesParams.PageSize);
+        }
+
+        public async Task<IEnumerable<FuelExpense>> GetAdminSummaryExpenses(FuelExpensesParams fuelExpensesParams)
+        {
+            return await _context.FuelExpenses.Where(x => x.InvoiceDate >= fuelExpensesParams.FromDate && x.InvoiceDate<= fuelExpensesParams.ToDate)                   
+                    .ToListAsync();
         }
 
         public async Task<FuelExpense> GetFuelExpense(string username, string invoiceNumber)
