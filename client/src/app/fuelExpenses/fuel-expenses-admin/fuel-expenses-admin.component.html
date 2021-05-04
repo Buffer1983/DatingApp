@@ -12,30 +12,40 @@
                         <div class="row">
                             <h3 class="text-primary pl-3">Total:</h3><h3 class="pl-3">{{fuelSummary.totalAmount}}</h3><h4 class="text-success pr-">€</h4>
                         </div>
-                        <div class="row">
+                        <div class="row pt-2">
                             <h5 class="text-primary pl-3">Km:</h5><h5 class="text-secondary pl-1">{{fuelSummary.totalKm}}</h5>
                             <h5 class="text-primary pl-3">Open Road Km:</h5><h5 class="text-secondary pl-1">{{fuelSummary.totalkmOutside}}</h5>
+                            <h5 class="text-primary pl-3">Total Fuel:</h5><h5 class="text-secondary pl-1">{{fuelSummary.totalLitresBenzene + fuelSummary.totalLitresDiesel + fuelSummary.totalLitresGas|number}} lt</h5>
                          </div>
                     </div>
                 </div>    
             </div>
             <table class="table" *ngIf="fuelSummary">
                 <tr>
-                    <th class="text-primary" style="width: 25%;">SubTotal</th>
-                    <th class="text-primary" style="width: 25%;">Benzene</th>
-                    <th class="text-primary" style="width: 25%;">Diesel</th>
-                    <th class="text-primary" style="width: 25%;">Gas</th>
+                    <th class="text-primary" style="width: 20%;">SubTotal</th>
+                    <th class="text-primary" style="width: 5%;">%</th>
+                    <th class="text-primary" style="width: 20%;">Benzene</th>
+                    <th class="text-primary" style="width: 5%;">%</th>
+                    <th class="text-primary" style="width: 20%;">Diesel</th>
+                    <th class="text-primary" style="width: 5%;">%</th>
+                    <th class="text-primary" style="width: 20%;">Gas</th>
                 </tr>
                 <tr>
                     <td><h6 class="text-info">Amount</h6> </td>
+                    <td><h6 class="text-info">{{fuelSummary.totalAmountBenzene*100/fuelSummary.totalAmount| number:'0.1-2'}}%</h6> </td>
                     <td><h6 class="text-info">{{fuelSummary.totalAmountBenzene}} €</h6> </td>
+                    <td><h6 class="text-info">{{fuelSummary.totalAmountDiesel*100/fuelSummary.totalAmount| number:'0.1-2'}}%</h6> </td>
                     <td><h6 class="text-info">{{fuelSummary.totalAmountDiesel}} €</h6> </td>
+                    <td><h6 class="text-info">{{fuelSummary.totalAmountGas*100/fuelSummary.totalAmount| number:'0.1-2'}}%</h6> </td>
                     <td><h6 class="text-info">{{fuelSummary.totalAmountGas}} €</h6> </td>
                 </tr>
                 <tr>
                     <td><h6 class="text-info">Litres</h6> </td>
+                    <td></td>
                     <td><h6 class="text-info">{{fuelSummary.totalLitresBenzene}}</h6> </td>
+                    <td></td>
                     <td><h6 class="text-info">{{fuelSummary.totalLitresDiesel}}</h6> </td>
+                    <td></td>
                     <td><h6 class="text-info">{{fuelSummary.totalLitresGas}}</h6> </td>
                 </tr>
             </table>
