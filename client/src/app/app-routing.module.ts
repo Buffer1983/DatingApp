@@ -17,6 +17,7 @@ import { AdminGuard } from './_guards/admin.guard';
 import { FuelExpensesAddComponent } from './fuelexpenses/fuel-expenses-add/fuel-expenses-add.component';
 import { FuelExpensesListComponent } from './fuelexpenses/fuel-expenses-list/fuel-expenses-list.component';
 import { FuelExpensesAdminComponent } from './fuelexpenses/fuel-expenses-admin/fuel-expenses-admin.component';
+import { MembersOnSiteComponent } from './membersonsite/members-on-site/members-on-site.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -33,6 +34,7 @@ const routes: Routes = [
       {path: 'fuelexpenses/add' , component : FuelExpensesAddComponent},
       {path: 'fuelexpense' , component : FuelExpensesListComponent},
       {path: 'fuelexpense/admin' , component : FuelExpensesAdminComponent},
+      {path: 'membersonsite', component: MembersOnSiteComponent},
       {path: 'messages', component: MessagesComponent},
       //We add adminguard in order to have access only admins
       {path: 'admin', component: AdminPanelComponent, canActivate:[AdminGuard]},

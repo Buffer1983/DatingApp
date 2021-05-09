@@ -28,7 +28,6 @@ export class PresenceService {
       })
       .withAutomaticReconnect()
       .build()
-    
     //We start the HubConnection
     this.hubConnection
       .start()

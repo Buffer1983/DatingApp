@@ -23,6 +23,7 @@ namespace API.Data
         public ILikesRepository LikesRepository => new LikesRepository(_context);
 
         public IFuelExpenseRepository FuelExpenseRepository => new FuelExpenseRepository(_context, _mapper);
+        public IMemberOnSiteRepository MemberOnSiteRepository => new MembersOnSiteRepository(_context,_mapper);
 
         public async Task<bool> Complete()
         {

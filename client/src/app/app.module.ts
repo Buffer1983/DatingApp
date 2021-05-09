@@ -38,6 +38,7 @@ import { NumberInputComponent } from './_forms/number-input/number-input.compone
 import { FuelExpensesListComponent } from './fuelexpenses/fuel-expenses-list/fuel-expenses-list.component';
 import { FuelCardComponent } from './fuelExpenses/fuel-card/fuel-card.component';
 import { FuelExpensesAdminComponent } from './fuelexpenses/fuel-expenses-admin/fuel-expenses-admin.component';
+import { MembersOnSiteComponent } from './membersonsite/members-on-site/members-on-site.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { FuelExpensesAdminComponent } from './fuelexpenses/fuel-expenses-admin/f
     FuelCardComponent,
     NumberInputComponent,
     FuelExpensesAdminComponent,
+    MembersOnSiteComponent,
   ],
   imports: [
     BrowserModule,

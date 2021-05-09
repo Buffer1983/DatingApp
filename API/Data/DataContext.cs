@@ -23,6 +23,7 @@ namespace API.Data
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
         public DbSet<FuelExpense> FuelExpenses {get; set;}
+        public DbSet<MemberOnSite> MembersOnSite {get;set;}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -75,6 +76,8 @@ namespace API.Data
                 .HasOne(u=> u.User)
                 .WithMany(f=>f.FuelExpenses)
                 .OnDelete(DeleteBehavior.Cascade);
+            
+            builder.Entity<MemberOnSite>();
             
             builder.ApplyUtcDateTimeConverter();
         }
