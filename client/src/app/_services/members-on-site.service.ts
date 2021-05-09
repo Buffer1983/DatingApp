@@ -32,9 +32,9 @@ export class MembersOnSiteService {
     
     //The hub name must be exact same as in API (MessageHub->OnConnectedAsync method)
     this.hubConnection.on('MembersOnSiteThread', member => {
-      this.onSiteThread$.pipe(take(1)).subscribe(members=>{
-        this.onSiteThreadSource.next([...members,member]);
-      })
+      // this.onSiteThread$.pipe(take(1)).subscribe(members=>{
+        this.onSiteThreadSource.next(member);
+      // })
       
     })
   }

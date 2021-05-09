@@ -25,7 +25,6 @@ export class MembersOnSiteComponent implements OnInit {
 
   ngOnInit(): void {
     this.membersOnSiteService.createHubConnection(this.user);
-    console.log(this.membersOnSiteService.onSiteThread$);
   }
 
 
