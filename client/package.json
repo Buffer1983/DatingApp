@@ -27,6 +27,7 @@
     "font-awesome": "^4.7.0",
     "ng2-file-upload": "^1.4.0",
     "ngx-bootstrap": "^6.1.0",
+    "ngx-bootstrap-navbar": "0.0.5",
     "ngx-spinner": "^10.0.1",
     "ngx-timeago": "^1.0.4",
     "ngx-toastr": "^13.0.0",

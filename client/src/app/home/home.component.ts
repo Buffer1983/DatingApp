@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AccountService } from '../_services/account.service';
+import { take } from 'rxjs/operators';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +11,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
   registerMode = false;
-
-  constructor() { }
+  user:User;
+  isCollapsed = false;
+  
+  constructor(public accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
   registerToggle() {
