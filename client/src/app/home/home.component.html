@@ -1,9 +1,8 @@
-
 <div class="container mt-5">
     <ng-container *ngIf="(accountService.currentUser$ | async) === null">
         <div *ngIf="!registerMode" style='text-align: center;'>
-            <h1>Find your match</h1>
-            <p class="lead">Come on in to view your matches... all you need to do is sign up!</p>
+            <h1 class="display-3">Zeeportal</h1>
+            <p class="lead">Keep Exploring</p>
             <div class="text-center">
                 <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
                 <button class="btn btn-info btn-lg">Learn more</button>
@@ -19,163 +18,169 @@
         </div>
     </ng-container>
     <ng-container *ngIf="(accountService.currentUser$ | async)">
-
-
-<!-- Bootstrap NavBar -->
-<!-- <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="#">
-    <img src="https://v4-alpha.getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-    <span class="menu-collapsed">My Bar</span>
-  </a>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li> -->
-      
-      <!-- This menu is hidden in bigger devices with d-sm-none. 
-           The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-      <!-- <li class="nav-item dropdown d-sm-block d-md-none">
-        <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Menu
-        </a>
-        <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-            <a class="dropdown-item" href="#">Dashboard</a>
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">Tasks</a>
-            <a class="dropdown-item" href="#">Etc ...</a>
-        </div>
-      </li>Smaller devices menu END -->
-<!--       
-    </ul>
-  </div>
-</nav>NavBar END --> 
-
-
-<!-- Bootstrap row -->
-<div class="row" id="body-row">
-    <!-- Sidebar -->
-    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-        <!-- Bootstrap List Group -->
-        <ul class="list-group">
-            <!-- Separator with title -->
-            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-                <small>MAIN MENU</small>
-            </li>
-            <!-- /END Separator -->
-            <!-- Menu with submenu -->
-            <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-dashboard fa-fw mr-3"></span> 
-                    <span class="menu-collapsed">Dashboard</span>
-                    <span class="submenu-icon ml-auto"></span>
+        <!-- HEADER -->
+        <header id="main-header" class="py-2  bg-warning text-white">
+            <div class="container">
+            <div class="row">
+                <div class="col">
+                <h1>
+                    <i class="fas fa-cog"></i> Dashboard</h1>
                 </div>
-            </a>
-            <!-- Submenu content -->
-            <div id='submenu1' class="collapse sidebar-submenu">
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Charts</span>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Reports</span>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Tables</span>
-                </a>
             </div>
-            <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-user fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Profile</span>
-                    <span class="submenu-icon ml-auto"></span>
-                </div>
-            </a>
-            <!-- Submenu content -->
-            <div id='submenu2' class="collapse sidebar-submenu">
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Settings</span>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Password</span>
-                </a>
-            </div>            
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-tasks fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Tasks</span>    
-                </div>
-            </a>
-            <!-- Separator with title -->
-            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-                <small>OPTIONS</small>
-            </li>
-            <!-- /END Separator -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-calendar fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Calendar</span>
-                </div>
-            </a>
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Messages <span class="badge badge-pill badge-primary ml-2">5</span></span>
-                </div>
-            </a>
-            <!-- Separator without title -->
-            <li class="list-group-item sidebar-separator menu-collapsed"></li>            
-            <!-- /END Separator -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-question fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Help</span>
-                </div>
-            </a>
-            <a href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span id="collapse-icon" class="fa fa-2x mr-3"></span>
-                    <span id="collapse-text" class="menu-collapsed">Collapse</span>
-                </div>
-            </a>
-            <!-- Logo -->
-            <li class="list-group-item logo-separator d-flex justify-content-center">
-                <img src='https://v4-alpha.getbootstrap.com/assets/brand/bootstrap-solid.svg' width="30" height="30" />    
-            </li>   
-        </ul><!-- List Group END-->
-    </div><!-- sidebar-container END -->
-
-    <!-- MAIN -->
-    <div class="col">
-        
-        <h1>
-            Collapsing Menu
-            <small class="text-muted">Version 2.1</small>
-        </h1>
-        
-        
-        <div class="card">
-            <h4 class="card-header">Requirements</h4>
-            <div class="card-body">
-                <ul>
-                    <li>JQuery</li>
-                    <li>Bootstrap 4 beta-3</li>
-                </ul>
             </div>
-        </div>
-       
+        </header>
+        <section id="maincards">
+            <div class="row">
+                <div class="col-md-4 mt-3">
+                    <div class="card bg-dark text-center">
+                        <div class="card-body">
+                          <h3 class="card-title text-light"><i class="fas fa-industry fa-lg"></i> Staff On Site</h3> 
+                          <hr>
+                          <p class="card-text text-light">Application For Staff on Site and Reporting</p>
+                          <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        CLick Here To Find More
+                                    </button>
+                                    </h2>
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <a routerLink='/membersonsite' routerLinkActive='active' class="btn btn-success btn-block py-3">
+                                                        <h3><i class="fas fa-user-check fa-lg"></i> </h3>
+                                                    </a>
+                                                </div>
+                                                <div class="col-6">
+                                                    <a href="/" class="btn btn-success btn-block py-3">
+                                                        <h3><i class="fas fa-chart-pie fa-lg"></i></h3>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <div class="card bg-light text-center">
+                        <div class="card-body">
+                          <h3 class="card-title text-dark"><i class="fas fa-bell fa-lg"></i> Notifications</h3> 
+                          <hr>
+                          <p class="card-text text-dark">Application For Staff on Site and Reporting</p>
+                          <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item bg-light">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        CLick Here To Find More
+                                    </button>
+                                    </h2>
+                                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <a href="/" class="btn btn-success btn-block py-3">
+                                                        <h3><i class="fas fa-industry fa-lg"></i> </h3>
+                                                    </a>
+                                                </div>
+                                                <div class="col-6">
+                                                    <a href="/" class="btn btn-success btn-block py-3">
+                                                        <h3><i class="fas fa-chart-pie fa-lg"></i></h3>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <div class="card bg-dark text-center" >
+                        <div class="card-body">
+                          <h3 class="card-title text-light"><i class="fas fa-gas-pump fa-lg"></i> Fuel Expenses</h3> 
+                          <hr>
+                          <p class="card-text text-light">Application For Fuel Expenses And Expenses Overview</p>
+                          <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        CLick Here To Find More
+                                    </button>
+                                    </h2>
+                                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <a routerLink='/fuelexpenses/add' class="btn btn-success btn-block py-3">
+                                                       <h3> <i class="fas fa-plus fa-lg"></i> </h3>
+                                                    </a>
+                                                </div>
+                                                <div class="col-6">
+                                                    <a routerLink='/fuelexpense' class="btn btn-success btn-block py-3">
+                                                       <h3> <i class="fas fa-chart-pie fa-lg"></i> </h3>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div *appHasRole='["Admin","Moderator"]' class="row">
+                                                <div class="col mt-2">
+                                                    <a routerLink='fuelexpense/admin' class="btn btn-info btn-block py-2">
+                                                        <h3> <i class="fas fa-user-lock fa-lg"></i> </h3>
+                                                     </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div  class="row">
+                <div *appHasRole='["Admin","Moderator"]' class="col-md-4 mt-3 mb-5">
+                    <div class="card bg-light text-center">
+                        <div class="card-body">
+                          <h3 class="card-title text-dark"><i class="fas fa-user-shield fa-lg"></i> Administration</h3> 
+                          <hr>
+                          <p class="card-text text-dark">Settings And Administration</p>
+                          <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item bg-light ">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        CLick Here To Find More
+                                    </button>
+                                    </h2>
+                                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <a routerLink='/admin'routerLinkActive='active' class="btn btn-success btn-block py-3">
+                                                        <h3><i class="fas fa-cogs fa-lg"></i> </h3>
+                                                    </a>
+                                                </div>
+                                                <div class="col-6">
+                                                    <a href="/" class="btn btn-success btn-block py-3">
+                                                       <h3><i class="fas fa-chart-pie fa-lg"></i></h3>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </section>
 
-
-    </div><!-- Main Col END -->
-    
-</div><!-- body-row END -->
-        
-</ng-container>
+    </ng-container>
+</div>

@@ -1,92 +1,171 @@
+<header id="main-header" class="py-2 mt-3  bg-warning text-white">
+    <div class="container">
+    <div class="row">
+        <div class="col">
+        <h1>
+            <i class="fas fa-gas-pump"></i> Fuel Expenses</h1>
+        </div>
+    </div>
+    </div>
+</header>
 
-    <tabset class="member-tabset mt-3">
-        <tab heading='Overview' >
-            <div class="row mt-3" *ngIf="fuelSummary">
+<!-- ACTIONS -->
+<section id="actions" class="py-4 mb-4 bg-light">
+<div class="container">
+    <div class="row">
+    <div class="col-md-3">
+        <a href="#" class="btn btn-primary btn-block">
+        <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="#" class="btn btn-success btn-block">
+        <i class="fas fa-sync-alt"></i> Refresh
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="#" class="btn btn-warning btn-block">
+        <i class="fas fa-chart-pie"></i> Reports
+        </a>
+    </div>
+    </div>
+</div>
+</section>
 
-                <div class="card w-100">
-                    <div class="card-header">
-                        Summary
-                    </div>
-                    
-                    <div class="card-body">
-                        <div class="row">
-                            <h3 class="text-primary pl-3">Total:</h3><h3 class="pl-3">{{fuelSummary.totalAmount}}</h3><h4 class="text-success pr-">€</h4>
+<!-- SUMMARY -->
+<div class="section mt-3" id="summary">
+    <div class="container">
+        <tabset class="member-tabset mt-3">
+            <tab heading='Overview' >
+                <div class="row mt-3" *ngIf="fuelSummary">
+                    <div class="col">
+                        <div class="card-header bg-dark text-white">
+                           <h4>Summary</h4> 
                         </div>
-                        <div class="row pt-2">
-                            <h5 class="text-primary pl-3">Km:</h5><h5 class="text-secondary pl-1">{{fuelSummary.totalKm}}</h5>
-                            <h5 class="text-primary pl-3">Open Road Km:</h5><h5 class="text-secondary pl-1">{{fuelSummary.totalkmOutside}}</h5>
-                            <h5 class="text-primary pl-3">Total Fuel:</h5><h5 class="text-secondary pl-1">{{fuelSummary.totalLitresBenzene + fuelSummary.totalLitresDiesel + fuelSummary.totalLitresGas|number}} lt</h5>
-                         </div>
                     </div>
-                </div>    
-            </div>
-            <table class="table" *ngIf="fuelSummary">
-                <tr>
-                    <th class="text-primary" style="width: 20%;">SubTotal</th>
-                    <th class="text-primary" style="width: 5%;">%</th>
-                    <th class="text-primary" style="width: 20%;">Benzene</th>
-                    <th class="text-primary" style="width: 5%;">%</th>
-                    <th class="text-primary" style="width: 20%;">Diesel</th>
-                    <th class="text-primary" style="width: 5%;">%</th>
-                    <th class="text-primary" style="width: 20%;">Gas</th>
-                </tr>
-                <tr>
-                    <td><h6 class="text-info">Amount</h6> </td>
-                    <td><h6 class="text-info">{{fuelSummary.totalAmountBenzene*100/fuelSummary.totalAmount| number:'0.1-2'}}%</h6> </td>
-                    <td><h6 class="text-info">{{fuelSummary.totalAmountBenzene}} €</h6> </td>
-                    <td><h6 class="text-info">{{fuelSummary.totalAmountDiesel*100/fuelSummary.totalAmount| number:'0.1-2'}}%</h6> </td>
-                    <td><h6 class="text-info">{{fuelSummary.totalAmountDiesel}} €</h6> </td>
-                    <td><h6 class="text-info">{{fuelSummary.totalAmountGas*100/fuelSummary.totalAmount| number:'0.1-2'}}%</h6> </td>
-                    <td><h6 class="text-info">{{fuelSummary.totalAmountGas}} €</h6> </td>
-                </tr>
-                <tr>
-                    <td><h6 class="text-info">Litres</h6> </td>
-                    <td></td>
-                    <td><h6 class="text-info">{{fuelSummary.totalLitresBenzene}}</h6> </td>
-                    <td></td>
-                    <td><h6 class="text-info">{{fuelSummary.totalLitresDiesel}}</h6> </td>
-                    <td></td>
-                    <td><h6 class="text-info">{{fuelSummary.totalLitresGas}}</h6> </td>
-                </tr>
-            </table>
-            
-        </tab>
-        <tab heading='Invoices'>
-            <div class="row">
-                <table class="table">
-                    <tr>
-                        <th style="width: 20%;">UserName</th>
-                        <th style="width: 20%;">Invoice</th>
-                        <th style="width: 20%;">Amount</th>
-                        <th style="width: 20%;">Date</th>
-                        <th style="width: 20%;">Car Km</th>
-                        <th style="width: 20%;">Fuel</th>
-                    </tr>
-                    <tr *ngFor="let fuelExpense of fuelExpenses">
-                        <td>{{fuelExpense.username}}</td>
-                        <td>{{fuelExpense.invoiceNumber}}</td>
-                        <td>{{fuelExpense.invoiceAmount}}</td>
-                        <td>{{fuelExpense.invoiceDate | date: 'dd MMM yyyy'}}</td>
-                        <td>{{fuelExpense.carKm}}</td>
-                        <td>{{fuelExpense.fuelType}}</td>
-                        <td><button (click) ="deleteInvoice(fuelExpense)" class="btn btn-danger">Delete</button></td>
-                    </tr>
-                </table>
-            </div>
+                    <div class="card-body">
+                        <div class="row" id="darkCard">
+                            <div class="col-md-3">
+                                <div class="card text-center" >
+                                    <div class="card-header bg-dark text-white">Total</div>
+                                    <div class="card-body bg-light">
+                                        {{fuelSummary.totalAmount}} €
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card text-center">
+                                    <div class="card-header bg-dark text-white">Km:</div>
+                                    <div class="card-body bg-light">
+                                        {{fuelSummary.totalKm}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card text-center">
+                                    <div class="card-header bg-dark text-white">Open Road Km:</div>
+                                    <div class="card-body bg-light">
+                                        {{fuelSummary.totalkmOutside}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card text-center">
+                                    <div class="card-header bg-dark text-white">Total Fuel:</div>
+                                    <div class="card-body bg-light">
+                                        {{fuelSummary.totalLitresBenzene + fuelSummary.totalLitresDiesel + fuelSummary.totalLitresGas|number}} lt
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card mt-2">
+                            <table class="table table-striped" *ngIf="fuelSummary">
+                                <thead class="thead-dark text">
+                                    <tr>
+                                        <th class="text-white">SubTotal</th>
+                                        <th class="text-white">%</th>
+                                        <th class="text-white">Benzene</th>
+                                        <th class="text-white">%</th>
+                                        <th class="text-white">Diesel</th>
+                                        <th class="text-white">%</th>
+                                        <th class="text-white">Gas</th>
+                                    </tr>
+                                    <tr>
+                                        <td><h6 class="text-info">Amount</h6> </td>
+                                        <td><h6 class="text-info">{{fuelSummary.totalAmountBenzene*100/fuelSummary.totalAmount| number:'0.1-2'}}%</h6> </td>
+                                        <td><h6 class="text-info">{{fuelSummary.totalAmountBenzene}} €</h6> </td>
+                                        <td><h6 class="text-info">{{fuelSummary.totalAmountDiesel*100/fuelSummary.totalAmount| number:'0.1-2'}}%</h6> </td>
+                                        <td><h6 class="text-info">{{fuelSummary.totalAmountDiesel}} €</h6> </td>
+                                        <td><h6 class="text-info">{{fuelSummary.totalAmountGas*100/fuelSummary.totalAmount| number:'0.1-2'}}%</h6> </td>
+                                        <td><h6 class="text-info">{{fuelSummary.totalAmountGas}} €</h6> </td>
+                                    </tr>
+                                    <tr>
+                                        <td><h6 class="text-info">Litres</h6> </td>
+                                        <td></td>
+                                        <td><h6 class="text-info">{{fuelSummary.totalLitresBenzene}}</h6> </td>
+                                        <td></td>
+                                        <td><h6 class="text-info">{{fuelSummary.totalLitresDiesel}}</h6> </td>
+                                        <td></td>
+                                        <td><h6 class="text-info">{{fuelSummary.totalLitresGas}}</h6> </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>                
+            </tab>
+            <tab heading='Invoices'>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card mt-2">
+                                <table class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th style="width: 20%;">UserName</th>
+                                            <th style="width: 20%;">Invoice</th>
+                                            <th style="width: 20%;">Amount</th>
+                                            <th style="width: 20%;">Date</th>
+                                            <th style="width: 20%;">Car Km</th>
+                                            <th style="width: 20%;">Fuel</th>
+                                            <th style="width: 20%;"></th>
+                                        </tr>
+                                        <tr *ngFor="let fuelExpense of fuelExpenses">
+                                            <td>{{fuelExpense.username}}</td>
+                                            <td>{{fuelExpense.invoiceNumber}}</td>
+                                            <td>{{fuelExpense.invoiceAmount}}</td>
+                                            <td>{{fuelExpense.invoiceDate | date: 'dd MMM yyyy'}}</td>
+                                            <td>{{fuelExpense.carKm}}</td>
+                                            <td>{{fuelExpense.fuelType}}</td>
+                                            <td><button (click) ="deleteInvoice(fuelExpense)" class="btn btn-danger">Delete</button></td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                <div class="d-flex justify-content-center" *ngIf="pagination">
+                    <pagination 
+                        [boundaryLinks]="true" 
+                        [totalItems]="pagination.totalItems"
+                        [itemsPerPage]="pagination.itemsPerPage"
+                        [(ngModel)]="pagination.currentPage"
+                        (pageChanged)="pageChanged($event)"
+                        previousText="&lsaquo;" 
+                        nextText="&rsaquo;" 
+                        firstText="&laquo;" 
+                        lastText="&raquo;">
+                </pagination>
+                </div>
+            </tab>
+        </tabset>
 
-            <div class="d-flex justify-content-center" *ngIf="pagination">
-                <pagination 
-                    [boundaryLinks]="true" 
-                    [totalItems]="pagination.totalItems"
-                    [itemsPerPage]="pagination.itemsPerPage"
-                    [(ngModel)]="pagination.currentPage"
-                    (pageChanged)="pageChanged($event)"
-                    previousText="&lsaquo;" 
-                    nextText="&rsaquo;" 
-                    firstText="&laquo;" 
-                    lastText="&raquo;">
-            </pagination>
-            </div>
-        </tab>
-        
-    </tabset>
+
+    </div>
+</div>
+    

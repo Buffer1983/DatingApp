@@ -7,3 +7,16 @@ img {
     border: 2px solid #fff;
     display: inline;
 }
+
+.navbar{
+    background: #772953;
+} 
+
+.navbar-brand {
+    color: #fff;
+}
+
+#nav .nav-link{
+    color: #fff;
+    font-size: 1.1rem;
+}
